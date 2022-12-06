@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        DOCKER_IMAGE_NAME = "vineetakhaitan/vineeta-pritam-image:1.0"
+        DOCKER_IMAGE_NAME = "vineetakhaitan/vineeta-pritam-image"
         DOCKER_USERNAME = "vineetakhaitan"
         DOCKER_PASSWORD = credentials('DOCKER_SECRET')
     }
@@ -26,11 +26,11 @@ pipeline{
                 sh '''
                         echo "pushing docker image ......"
                         docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-                        docker tag "${DOCKER_IMAGE_NAME}" "${DOCKER_IMAGE_NAME]": "$BUID_NUMBER"
+                        docker tag "${DOCKER_IMAGE_NAME}" "${DOCKER_IMAGE_NAME}": "$BUILD_NUMBER"
                         docker push "${DOCKER_IMAGE_NAME}": "$BUILD_NUMBER"
                         docker push "${DOCKER_IMAGE_NAME}": latest
                         echo "cleaning up the local images ...."
-                        docker rmi "${DOCKER_IMAGE_NAME]": "$BUILD_NUMBER"
+                        docker rmi "${DOCKER_IMAGE_NAME}": "$BUILD_NUMBER"
                 '''
             }
         }
