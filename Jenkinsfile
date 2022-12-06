@@ -26,11 +26,11 @@ pipeline{
                 sh '''
                         echo "pushing docker image ......"
                         docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-                        docker tag "${DOCKER_IMAGE_NAME}" "${DOCKER_IMAGE_NAME}": "$BUILD_NUMBER"
-                        docker push "${DOCKER_IMAGE_NAME}": "$BUILD_NUMBER"
-                        docker push "${DOCKER_IMAGE_NAME}": latest
+                        docker tag "${DOCKER_IMAGE_NAME}" "${DOCKER_IMAGE_NAME}":"$BUILD_NUMBER"
+                        docker push "${DOCKER_IMAGE_NAME}":"$BUILD_NUMBER"
+                        docker push "${DOCKER_IMAGE_NAME}":latest
                         echo "cleaning up the local images ...."
-                        docker rmi "${DOCKER_IMAGE_NAME}": "$BUILD_NUMBER"
+                        docker rmi "${DOCKER_IMAGE_NAME}":"$BUILD_NUMBER"
                 '''
             }
         }
@@ -39,7 +39,7 @@ pipeline{
                 sh '''
                         echo "deploying the application....."
                         docker rm -f metadata-app || true
-                        docker run -d -D 8081:8080 --name metadata-app "${DOCKER_IMAGE_NAME}": latest 
+                        docker run -d -D 8081:8080 --name metadata-app "${DOCKER_IMAGE_NAME}":latest 
                 '''
             }
         }
