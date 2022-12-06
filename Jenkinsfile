@@ -39,7 +39,7 @@ pipeline{
                 sh '''
                         echo "deploying the application....."
                         docker rm -f metadata-app || true
-                        docker run -d -D 8081:8080 --name metadata-app "${DOCKER_IMAGE_NAME}":latest 
+                        docker run -d -p 8081:8080 --name metadata-app "${DOCKER_IMAGE_NAME}":latest 
                 '''
             }
         }
